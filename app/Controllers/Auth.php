@@ -47,7 +47,7 @@ class Auth extends BaseController
                 'rules' => 'required|is_unique[user.no_hp]',
                 'errors' => [
                     'required' => 'You must choose a Nomor Handphone.',
-                    'is_unique'=> 'Nomor HP telah digunakan'
+                    'is_unique' => 'Nomor HP telah digunakan'
                 ],
             ],
             'email' => [
@@ -55,7 +55,7 @@ class Auth extends BaseController
                 'rules' => 'required|is_unique[user.email]',
                 'errors' => [
                     'required' => 'You must choose a Email.',
-                    'is_unique'=> 'email telah digunakan'
+                    'is_unique' => 'email telah digunakan'
                 ],
             ],
             'retype_password' => [
@@ -70,7 +70,7 @@ class Auth extends BaseController
                 'username' => $this->request->getPost('username'),
                 'email' => $this->request->getPost('email'),
                 'no_hp' => $this->request->getPost('no_hp'),
-                'password' => password_hash($this->request->getVar('password'),PASSWORD_DEFAULT),
+                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'level' => 3
             );
             $this->Model_Auth->save_register($data);
@@ -80,12 +80,11 @@ class Auth extends BaseController
             session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
             return redirect()->to(base_url('auth/register'));
         }
-        
     }
     public function login()
     {
-        $data['link']= $this->googleClient->createAuthUrl();
-        return view('login',$data);
+        $data['link'] = $this->googleClient->createAuthUrl();
+        return view('login', $data);
     }
     public function register_google()
     {
@@ -214,7 +213,7 @@ class Auth extends BaseController
                 'alamat' => $this->request->getPost('alamat'),
                 'level' => 2,
             );
-            $this->Model_Auth->update_register($data,$id);
+            $this->Model_Auth->update_register($data, $id);
             session()->remove('log');
             session()->remove('username');
             session()->remove('level');
