@@ -274,7 +274,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link <?= $sub_menu == 'sudah_verifikasi' ? 'active' : ''  ?>">
+                                    <a href="<?= base_url(); ?>admin/sudah_verifikasi" class="nav-link <?= $sub_menu == 'sudah_verifikasi' ? 'active' : ''  ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Sudah Verifikasi</p>
                                     </a>
@@ -283,6 +283,12 @@
                                     <a href="<?= base_url(); ?>admin/belum_verifikasi" class="nav-link <?= $sub_menu == 'belum_verifikasi' ? 'active' : ''  ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Belum Verifikasi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url(); ?>admin/tolak_verifikasi" class="nav-link <?= $sub_menu == 'tolak_verifikasi' ? 'active' : ''  ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tolak Verifikasi</p>
                                     </a>
                                 </li>
                             </ul>

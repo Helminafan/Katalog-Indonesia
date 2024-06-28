@@ -37,8 +37,10 @@ $routes->get('/admin/edit_sub_kategori/(:any)', 'AdminController::edit_sub_kateg
 $routes->post('/admin/update_sub_kategori/(:num)', 'AdminController::update_sub_kategori/$1');
 $routes->delete('/admin/delete_sub_kategori/(:num)', 'AdminController::delete_sub_kategori/$1');
 
-$routes->get('/admin/belum_verifikasi','AdminController::view_belum_verifikasi');
-$routes->get('/admin/detail_barang/(:num)','AdminController::detail_barang/$1');
+$routes->get('/admin/belum_verifikasi', 'AdminController::view_belum_verifikasi');
+$routes->get('/admin/detail_barang/(:num)', 'AdminController::detail_barang/$1');
+$routes->get('/admin/sudah_verifikasi', 'AdminController::view_sudah_verifikasi');
+$routes->get('/admin/tolak_verifikasi', 'AdminController::view_tolak_verifikasi');
 
 
 // login dan register admin
