@@ -72,27 +72,27 @@
 <?= $this->section('scripts') ?>
 
 <script>
-    $(document).ready(function() {
-        // Function to add new variation fields
-        $(".add-variasi").on("click", function() {
-            var card =
-                '<div class="box box-default hapus">' +
-                '<div class="box-body">' +
-                '<div class="form-group col-md-12">' +
-                '<label>Nama Opsi</label>' +
-                '<input type="text" class="form-control" name="nama_opsi[]" placeholder="Enter nama opsi">' +
-                '</div>' +
-                '<div class="form-group col-md-12">' +
-                '<label>Harga</label>' +
-                '<input type="text" class="form-control" name="harga_opsi[]" placeholder="Enter harga opsi">' +
-                '</div>' +
-                '<div class="form-group col-md-12">' +
-                '<button type="button" class="btn btn-danger delete">Delete</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>';
-            $(".add-more-variasi").append(card);
-        });
+   $(document).ready(function() {
+    // Function to add new variation fields
+    $(".add-variasi").on("click", function() {
+        var card =
+            '<div class="box box-default">' +
+            '<div class="box-body">' +
+            '<div class="form-group col-md-12">' +
+            '<label>Nama Opsi</label>' +
+            '<input type="text" class="form-control" name="nama_opsi[]" placeholder="Enter nama opsi">' +
+            '</div>' +
+            '<div class="form-group col-md-12">' +
+            '<label>Harga</label>' +
+            '<input type="text" class="form-control" name="harga[]" placeholder="Enter harga opsi">' +
+            '</div>' +
+            '<div class="form-group col-md-12">' +
+            '<button type="button" class="btn btn-danger delete">Delete</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+        $(".add-more-variasi").append(card);
+    });
 
         // Function to remove variation fields
         $(".add-more-variasi").on("click", ".delete", function() {

@@ -32,7 +32,8 @@ class AdminController extends BaseController
         $data = [
             'iklan' => $this->iklancarausel->getIklanCarausel(),
             'menu' => 'iklan',
-            'sub_menu' => 'iklan_carausel'
+            'sub_menu' => 'iklan_carausel',
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
 
         ];
         return view('admin/iklan_carausel/view_iklan', $data);
@@ -44,7 +45,8 @@ class AdminController extends BaseController
         $data = [
             'validation' => \Config\Services::validation(),
             'menu' => 'iklan',
-            'sub_menu' => 'iklan_carausel'
+            'sub_menu' => 'iklan_carausel',
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/iklan_carausel/tambah_iklan', $data);
     }
@@ -79,8 +81,8 @@ class AdminController extends BaseController
             'validation' => \Config\Services::validation(),
             'iklan' => $this->iklancarausel->getIklanCarausel($slug),
             'menu' => 'iklan',
-            'sub_menu' => 'iklan_carausel'
-
+            'sub_menu' => 'iklan_carausel',
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/iklan_carausel/edit_iklan', $data);
     }
@@ -107,6 +109,7 @@ class AdminController extends BaseController
             'isi_iklan' => $this->request->getVar('isi_iklan'),
             'slug' => $slug,
             'judul_iklan' => $this->request->getVar('judul_iklan'),
+
         ]);
         session()->setFlashdata('pesan', 'data berhasil diedit');
         return redirect()->to('/admin/view_iklan_carausel');
@@ -126,7 +129,8 @@ class AdminController extends BaseController
         $data = [
             'kategori' => $this->kategori->findAll(),
             'menu' => 'ketegori',
-            'sub_menu' => ''
+            'sub_menu' => '',
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/kategori/view_kategori', $data);
     }
@@ -136,7 +140,8 @@ class AdminController extends BaseController
     {
         $data = [
             'menu' => 'ketegori',
-            'sub_menu' => ''
+            'sub_menu' => '',
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/kategori/tambah_kategori', $data);
     }
@@ -160,6 +165,7 @@ class AdminController extends BaseController
             'menu' => 'ketegori',
             'sub_menu' => '',
             'kategori' => $this->kategori->getKategori($slug),
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/kategori/edit_kategori', $data);
     }
@@ -187,7 +193,8 @@ class AdminController extends BaseController
         $data = [
             'menu' => 'sub_ketegori',
             'sub_kategori' => $this->sub_kategori->findAll(),
-            'sub_menu' => ''
+            'sub_menu' => '',
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/sub_kategori/view', $data);
     }
@@ -198,6 +205,7 @@ class AdminController extends BaseController
             'menu' => 'sub_ketegori',
             'sub_menu' => '',
             'kategori' => $this->kategori->findAll(),
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/sub_kategori/add', $data);
     }
@@ -209,7 +217,7 @@ class AdminController extends BaseController
         $this->sub_kategori->save([
             'nama_sub_kategori' => $this->request->getVar('nama_sub_kategori'),
             'slug' => $slug,
-            'id_kategori' => $this->request->getVar('id_kategori')
+            'id_kategori' => $this->request->getVar('id_kategori'),
         ]);
         session()->setFlashdata('pesan', 'data berhasil ditambahkan');
         return redirect()->to('admin/view_sub_kategori');
@@ -221,6 +229,7 @@ class AdminController extends BaseController
             'sub_menu' => '',
             'kategori' => $this->kategori->findAll(),
             'sub_kategori' => $this->sub_kategori->getSubKategori($slug),
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/sub_kategori/edit', $data);
     }
@@ -234,9 +243,8 @@ class AdminController extends BaseController
             'id' => $id,
             'nama_sub_kategori' => $this->request->getVar('nama_sub_kategori'),
             'slug' => $slug,
-            'id_kategori' => $this->request->getVar('id_kategori')
+            'id_kategori' => $this->request->getVar('id_kategori'),
         ]);
-
         session()->setFlashdata('pesan', 'data berhasil diedit');
         return redirect()->to('admin/view_sub_kategori');
     }
@@ -255,7 +263,9 @@ class AdminController extends BaseController
             ->join('kategori', 'kategori.id = barang.id_kategori_barang')
             ->join('sub_kategori', 'sub_kategori.id = barang.id_sub_kategori_barang')
             ->where('verifikasi', 1)->findAll(),
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults(),
         ];
+        
         return view('admin/belum_verifikasi/view_blm_verifikasi', $data);
     }
     public function view_sudah_verifikasi()
@@ -267,7 +277,8 @@ class AdminController extends BaseController
             ->select('barang.*, kategori.nama_kategori as kategori_name, sub_kategori.nama_sub_kategori as sub_kategori_name')
             ->join('kategori', 'kategori.id = barang.id_kategori_barang')
             ->join('sub_kategori', 'sub_kategori.id = barang.id_sub_kategori_barang')
-            ->where('verifikasi', 1)->findAll(),
+            ->where('verifikasi', 3)->findAll(),
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/sudah_verifikasi/view_sdh_verifikasi', $data);
     }
@@ -280,19 +291,37 @@ class AdminController extends BaseController
             ->select('barang.*, kategori.nama_kategori as kategori_name, sub_kategori.nama_sub_kategori as sub_kategori_name')
             ->join('kategori', 'kategori.id = barang.id_kategori_barang')
             ->join('sub_kategori', 'sub_kategori.id = barang.id_sub_kategori_barang')
-            ->where('verifikasi', 1)->findAll(),
+            ->where('verifikasi', 2)->findAll(),
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/tolak_verifikasi/view_tlk_verifikasi', $data);
     }
     public function detail_barang($id)  {
         $data = [
             'menu' => 'verifikasi',
-            'sub_menu' => 'belum_verifikasi',
+            'sub_menu' => '',
             'barang' => $this->barang->find($id),
             'foto_barang' => $this->fotoBarang->where('id_barang', $id)->findAll(),
             'variasi' => $this->variasi->data_opsi($id),
-            'kategori' => $this->kategori->getSubKategori()
+            'kategori' => $this->kategori->getSubKategori(),
+            'jumlah_verifikasi'=> $this->barang->where('verifikasi',1)->countAllResults()
         ];
         return view('admin/belum_verifikasi/detail_blm_verifikasi', $data);
+    }
+    public function verifikasi_barang($id)  {
+        $this->barang->save([
+            'id' => $id,
+            'verifikasi' => 3,
+        ]);
+        session()->setFlashdata('pesan', 'data berhasil diverifikasi');
+        return redirect()->to('/admin/belum_verifikasi');
+    }
+    public function tolak_verifikasi_barang($id)  {
+        $this->barang->save([
+            'id' => $id,
+            'verifikasi' => 2,
+        ]);
+        session()->setFlashdata('pesan', 'data berhasil ditolak');
+        return redirect()->to('/admin/belum_verifikasi');
     }
 }
