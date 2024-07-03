@@ -52,36 +52,7 @@
 <!-- Carousel End -->
 
 
-<!-- Featured Start -->
-<div class="container-fluid pt-5">
-    <div class="row px-xl-5 pb-3">
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-            <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Featured End -->
+<!--  -->
 
 
 <!-- Categories Start -->
@@ -253,23 +224,57 @@
 <div class="container-fluid pt-5 pb-3">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Produk Unggulan</span></h2>
     <div class="row px-xl-5">
-        <?php foreach ($barang as $bk) : ?>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <a href="<?= base_url(); ?>user/detail/<?= $bk['id']; ?>" class="d-block text-decoration-none">
-                        <div class="product-img position-relative overflow-hidden">
-                            <img class="" style="object-fit: scale-down !important; width: 280px; height: 280px;" src="<?= base_url(); ?>barang/<?= $bk['foto_barang']; ?>" alt="">
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+                <a href="" class="d-block text-decoration-none">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="" style="object-fit: scale-down !important; width: 280px; height: 280px;" src="/img/webdev.png" alt="">
+                    </div>
+                    <div class="text-center py-4 ">
+                        <h5 class="mb-0 ">Pembuatan Website</h5>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <span class="heading">5.0</span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span> <span>(999.999)</span>
+                        <p class="h6 text-decoration-none text-truncate">PT. Indo Apps Solusindo</p>
+
+                        <div class="justify-content-center mt-2">
+                            <h5 class="mb-0 ">Rp. 999.999</h5>
                         </div>
-                        <div class="text-center py-4 ">
-                            <p class="h6 text-decoration-none text-truncate"><?= $bk['judul_barang']; ?></p>
-                            <div class="justify-content-center mt-2">
-                                <h5 class="mb-0 ">Rp. <?= $bk['harga_barang']; ?></h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
-        <?php endforeach; ?>
+        </div>
+
+        <!-- Produk Ke 2 -->
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+                <a href="" class="d-block text-decoration-none">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="" style="object-fit: scale-down !important; width: 280px; height: 280px;" src="/img/gamedev.jpg" alt="">
+                    </div>
+                    <div class="text-center py-4 ">
+                        <h5 class="mb-0 ">Pembuatan Aplikasi</h5>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <span class="heading">5.0</span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span> <span>(999.999)</span>
+                        <p class="h6 text-decoration-none text-truncate">PT. Indo Apps Solusindo</p>
+
+                        <div class="justify-content-center mt-2">
+                            <h5 class="mb-0 ">Rp. 999.999</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>
 <!-- Produk end -->
