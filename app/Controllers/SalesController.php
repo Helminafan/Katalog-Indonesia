@@ -227,19 +227,20 @@ class SalesController extends BaseController
         // Handle variasi update
         $variasiNames = $this->request->getPost('nama_variasi');
         $variasiIds = $this->request->getPost('variasi_id');
-        foreach ($variasiNames as $index => $nama_variasi) {
-            $variasi_id = $variasiIds[$index] ?? null;
-            if ($variasi_id) {
-                $this->variasi->update($variasi_id, ['nama_variasi' => $nama_variasi]);
-            } else {
-                $this->variasi->insert([
-                    'id_barang' => $id,
-                    'nama_variasi' => $nama_variasi,
-                ]);
+        if ($variasiNames) {
+            foreach ($variasiNames as $index => $nama_variasi) {
+                $variasi_id = $variasiIds[$index] ?? null;
+                if ($variasi_id) {
+                    $this->variasi->update($variasi_id, ['nama_variasi' => $nama_variasi]);
+                } else {
+                    $this->variasi->insert([
+                        'id_barang' => $id,
+                        'nama_variasi' => $nama_variasi,
+                    ]);
+                }
             }
         }
-        session()->setFlashdata('pesan', 'data berhasil diupdate');
-
+        session()->getFlashdata('pesan', 'data berhasil di update');
         return redirect()->to('/sales/view_barang')->with('success', 'Data barang berhasil diperbarui.');
     }
     public function delete_foto_lain($id)
@@ -377,7 +378,7 @@ class SalesController extends BaseController
             'nama_opsi' => $this->request->getVar('nama_opsi'),
             'harga' => $this->request->getVar('harga'),
         ]);
-        session()->setFlashdata('pesan', 'data berhasil diupdate');
+        session()->setFlashdata('pesan', 'data berhasil diedit');
         return redirect()->to('/sales/view_tambah_variasi/')->with('success', 'Opsi berhasil diperbarui.');
     }
     public function store_opsi()

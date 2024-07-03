@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\AlamatToko;
 use App\Models\Model_Auth;
 use Google_Client;
 
@@ -9,11 +10,13 @@ class Auth extends BaseController
 {
     protected $Model_Auth;
     protected $googleClient;
+    protected $alamat_toko;
     public function __construct()
     {
         helper('form');
         $this->Model_Auth = new Model_Auth();
         $this->googleClient = new Google_Client();
+        $this->alamat_toko = new AlamatToko();
         $this->googleClient->setClientId(env('GOOGLE_CLIENT_ID'));
         $this->googleClient->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
         $this->googleClient->setRedirectUri(env('GOOGLE_REDIRECT_URI'));
@@ -214,6 +217,13 @@ class Auth extends BaseController
                 'level' => 2,
             );
             $this->Model_Auth->update_register($data, $id);
+            $this->alamat_toko->save([
+                'provinsi' => $this->request->getPost('provinsi'),
+                'kabupaten' => $this->request->getPost('kabupaten'),
+                'kecamatan' => $this->request->getPost('kecamatan'),
+                'kelurahan' => $this->request->getPost('kelurahan'),
+                'user' => $id,
+            ]);
             session()->remove('log');
             session()->remove('username');
             session()->remove('level');

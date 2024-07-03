@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Opsi extends Model
+class AlamatToko extends Model
 {
-    protected $table            = 'opsi';
+    protected $table            = 'alamat_toko';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = ['nama_opsi','id_variasi','harga'];
+    protected $protectFields    = false;
+    protected $allowedFields    = [];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -27,17 +27,4 @@ class Opsi extends Model
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    // Validation
-    public function getHargaBerdasarkanVariasi($id_variasi)
-    {
-        // Contoh query sederhana, sesuaikan dengan logika bisnis Anda
-        
-        $builder = $this->db->table($this->table);
-        $builder->select('harga');
-        $builder->where('nama_opsi', $id_variasi);
-        $query = $builder->get();
-        $result = $query->getRowArray();
-
-        return $result['harga'] ?? 0;
-    }
 }
