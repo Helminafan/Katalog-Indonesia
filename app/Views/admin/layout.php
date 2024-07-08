@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/fontawesome-free/css/all.min.css">
+    <?= $this->renderSection('link') ?>
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
@@ -20,12 +20,18 @@
     <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/dists/css/adminlte.min.css">
+    <!-- sweat alart -->
+    <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>asset/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -211,15 +217,15 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                         <li class="nav-item">
-                            <a href="<?= base_url(); ?> admin/dashboard" class="nav-link">
+                            <a href="<?= base_url(); ?> admin/dashboard" class="nav-link <?= $menu == 'dashboard' ? 'active' : ''  ?>">
                                 <i class="nav-icon  fas fa-th-large"></i>
                                 <p>
                                     Dashboard
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                        <li class="nav-item <?= $menu == 'iklan' ? 'menu-open' : ''  ?>">
+                            <a href="#" class="nav-link  <?= $menu == 'iklan' ? 'active' : ''  ?>">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Iklan
@@ -228,27 +234,69 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= base_url() ?>admin/view_iklan_carausel" class="nav-link active">
+                                    <a href="<?= base_url() ?>admin/view_iklan_carausel" class="nav-link <?= $sub_menu == 'iklan_carausel' ? 'active' : ''  ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Iklan Carausel</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="<?= base_url() ?>admin/view_iklan_tetap" class="nav-link <?= $sub_menu == 'iklan_tetap' ? 'active' : ''  ?>">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>iklan tetap</p>
+                                        <p>Iklan Tetap</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= base_url(); ?>admin/view_kategori" class="nav-link <?= $menu == 'ketegori' ? 'active' : ''  ?>">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
+                                    Kategori
                                 </p>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url(); ?>admin/view_sub_kategori" class="nav-link <?= $menu == 'sub_ketegori' ? 'active' : ''  ?>">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Sub Kategori
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item <?= $menu == 'verifikasi' ? 'menu-open' : ''  ?>">
+                            <a href="#" class="nav-link  <?= $menu == 'verifikasi' ? 'active' : ''  ?>">
+                                <i class="nav-icon fas fa-check"></i>
+                                <p>
+                                    Verifikasi Barang
+                                    <i class="right fas fa-angle-left"></i>
+                                    <?php if ($jumlah_verifikasi > 0) : ?>
+                                        <span class="badge badge-info right"><?= $jumlah_verifikasi; ?></span>
+                                    <?php endif ?>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url(); ?>admin/sudah_verifikasi" class="nav-link <?= $sub_menu == 'sudah_verifikasi' ? 'active' : ''  ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sudah Verifikasi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url(); ?>admin/belum_verifikasi" class="nav-link <?= $sub_menu == 'belum_verifikasi' ? 'active' : ''  ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <?php if ($jumlah_verifikasi > 0) : ?>
+                                            <span class="badge badge-info right"><?= $jumlah_verifikasi; ?></span>
+                                        <?php endif ?>
+                                        <p>Belum Verifikasi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url(); ?>admin/tolak_verifikasi" class="nav-link <?= $sub_menu == 'tolak_verifikasi' ? 'active' : ''  ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tolak Verifikasi</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url(); ?> logout" class="nav-link">
@@ -267,6 +315,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper ">
+            <div class="flash_data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
             <?= $this->renderSection('content'); ?>
         </div>
         <!-- /.content-wrapper -->
@@ -321,6 +370,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="<?= base_url(); ?>asset/dists/js/pages/dashboard.js"></script>
     <script src="<?= base_url(); ?>asset/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url(); ?>asset/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="<?= base_url(); ?>asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url(); ?>asset/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="<?= base_url(); ?>asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
@@ -332,18 +382,20 @@
     <script src="<?= base_url(); ?>asset/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="<?= base_url(); ?>asset/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="<?= base_url(); ?>asset/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="<?= base_url(); ?>asset/plugins/jquery-validation/jquery.validate.min.js"></script>
     <script>
         $(function() {
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,
@@ -351,6 +403,70 @@
             });
         });
     </script>
+    <script>
+        const flashData = $('.flash_data').data('flashdata')
+        if (flashData) {
+            Swal.fire({
+                title: flashData,
+                icon: "success"
+            });
+        }
+
+
+        $('.delete').on('submit', function(e) {
+            e.preventDefault();
+            const hero = this;
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hero.submit();
+                }
+            });
+        })
+        $('.verifikasi').on('submit', function(e) {
+            e.preventDefault();
+            const hero = this;
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, verifikaasi it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hero.submit();
+                }
+            });
+        })
+        $('.tolak').on('submit', function(e) {
+            e.preventDefault();
+            const hero = this;
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, tolak it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hero.submit();
+                }
+            });
+        })
+    </script>
+    <?= $this->renderSection('scripts') ?>
+
 </body>
 
 </html>
