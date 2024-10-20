@@ -52,6 +52,14 @@ class Barang extends Model
         dd('gagal');
 
     }
+    public function getSemuaBarang (){
+       $builder = $this->db->table('barang');
+       $builder->select('barang.*, alamat_toko.id AS id_alamat, alamat_toko.provinsi, alamat_toko.kabupaten, alamat_toko.kecamatan, alamat_toko.kelurahan');
+       $builder->join('alamat_toko', 'barang.pemilik = alamat_toko.user');
+       $builder->where('barang.verifikasi', 3);
+       $query = $builder->get();
+       return $query->getResultArray();
+    }
     public function getNewBarang($limit = 6)
     {
         $builder = $this->db->table('barang');
@@ -86,19 +94,22 @@ class Barang extends Model
         $builder->select('barang.*, alamat_toko.id AS id_alamat, alamat_toko.provinsi, alamat_toko.kabupaten, alamat_toko.kecamatan, alamat_toko.kelurahan');
         $builder->join('alamat_toko', 'barang.pemilik = alamat_toko.user');
         $builder->where('barang.verifikasi', 3);
-        if ($provinsi) {
+        if ($provinsi ) {
             $builder->where('alamat_toko.provinsi', $provinsi);
+            log_message('info', 'tempat provinsi: ' . json_encode($provinsi));
         }
-        // if ($kabupaten) {
-        //     $builder->where('alamat_toko.kabupaten', $kabupaten);
-        // }
-        // if ($kecamatan) {
-        //     $builder->where('alamat_toko.kecamatan', $kecamatan);
-        // }
-        // if ($kelurahan) {
-        //     $builder->where('alamat_toko.kelurahan', $kelurahan);
-        // }
-
+        if ($kabupaten ) {
+            $builder->where('alamat_toko.kabupaten', $kabupaten);
+            log_message('info', 'tempat kabupaten: ' . json_encode($kabupaten));
+        }
+        if ($kecamatan ) {
+            $builder->where('alamat_toko.kecamatan', $kecamatan);
+            log_message('info', 'tempat kecamatan: ' . json_encode($kecamatan));
+        }
+        if ($kelurahan ) {
+            $builder->where('alamat_toko.kelurahan', $kelurahan);
+            log_message('info', 'tempat kelurahan: ' . json_encode($kelurahan));
+        }
         $builder->orderBy('RAND()');
         $query = $builder->get();
         return $query->getResultArray();

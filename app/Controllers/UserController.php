@@ -68,7 +68,7 @@ class UserController extends BaseController
     public function shop()
     {
         $data = [
-            'barang' => $this->barang->getbarang(),
+            'barang' => $this->barang->getBarang(),
             'kategori' => $this->kategori->getSubKategori(),
             'cart' => \Config\Services::cart(),
             'menu' => 'shop',
@@ -77,11 +77,11 @@ class UserController extends BaseController
     }
     public function filter_toko()
     {
+        
         $provinsi = $this->request->getVar('provinsi');
         $kabupaten = $this->request->getVar('kabupaten');
         $kecamatan = $this->request->getVar('kecamatan');
         $kelurahan = $this->request->getVar('kelurahan');
-
         // Panggil model untuk mengambil data barang sesuai filter
         $barang = $this->barang->getbarang($provinsi, $kabupaten, $kecamatan, $kelurahan);
         log_message('info', 'Data barang yang dikembalikan: ' . json_encode($barang));

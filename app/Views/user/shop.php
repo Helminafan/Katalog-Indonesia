@@ -156,23 +156,26 @@
                             </div>
                             <div class="btn-group ml-2">
                                 <select id="kabupaten" name="kabupaten" class="form-control">
-                                    <option>Pilih kabupaten</option>
-                                    <option value="Denpasar">Denpasar</option>
+                                    <option value="">Pilih kabupaten</option>
+                                    <option value="KOTA DENPASAR">Denpasar</option>
                                     <option value="Bali">Bali</option>
+                                    <option value="Tabanan">Tabanan</option>
                                 </select>
                             </div>
                             <div class="btn-group ml-2">
                                 <select id="kecamatan" name="kecamatan" class="form-control">
-                                    <option>Pilih kecamatan</option>
+                                    <option value="">Pilih kecamatan</option>
                                     <option value="Denpasar Barat">Denpasar Barat</option>
                                     <option value="Bali">Bali</option>
+                                    <option value="Baturiti">Baturiti</option>
                                 </select>
                             </div>
                             <div class="btn-group ml-2">
                                 <select id="kelurahan" name="kelurahan" class="form-control">
-                                    <option>Pilih kelurahan</option>
+                                    <option value="">Pilih kelurahan</option>
                                     <option value="Peguyangan">Peguyangan</option>
                                     <option value="Bali">Bali</option>
+                                    <option value="Candikuning">Candikuning</option>
                                 </select>
                             </div>
                         </div>
@@ -265,8 +268,6 @@
     $('#provinsi, #kabupaten, #kecamatan, #kelurahan').on('change', function() {
         loadBarang();
     });
-
-    
 });
 </script>
 <?= $this->endSection(); ?>
